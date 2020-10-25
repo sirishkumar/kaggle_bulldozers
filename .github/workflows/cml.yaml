@@ -12,6 +12,7 @@ jobs:
                 GDRIVE_USER_CREDENTIALS: ${{ secrets.GDRIVE_USER_CREDENTIALS }}
                 KAGGLE_API_KEY: ${{ secrets.KAGGLE_API_KEY }}
               run: |
+                apt get update
                 apt install graphviz
                 pip install -U pip
                 pip install -r requirements.txt
