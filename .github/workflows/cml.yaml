@@ -13,6 +13,7 @@ jobs:
               run: |
                 pip install -U pip
                 pip install -r requirements.txt
+                dvc pull
                 dvc repro
                 
                 echo "## Model metrics" >> report.md
