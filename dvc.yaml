@@ -1,0 +1,17 @@
+stages:
+  pull_data:
+    cmd: python get_data.py
+    outs:
+    - data
+    
+  training:
+    cmd: python training.py
+    deps:
+    - training.py
+    - data/
+    outs:
+    - metrics.txt
+    metrics:
+    - metrics.json:
+        cache: false
+

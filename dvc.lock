@@ -1,0 +1,17 @@
+training:
+  cmd: python training.py
+  deps:
+  - path: data/
+    md5: 6477b8ae959b4356f965cb5e464e9dee.dir
+  - path: training.py
+    md5: 552441a3de45cf313c6cf22c8fdfda49
+  outs:
+  - path: metrics.json
+    md5: 54890381966087e7998574d3bc37d903
+  - path: metrics.txt
+    md5: eab8355f0fb2584506b37c475a0d673d
+pull_data:
+  cmd: python get_data.py
+  outs:
+  - path: data
+    md5: 6477b8ae959b4356f965cb5e464e9dee.dir
