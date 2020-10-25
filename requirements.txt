@@ -1,3 +1,4 @@
 fastbook
 dtreeviz
 graphviz
+kaggle
