@@ -1,0 +1,12 @@
+stages:
+  training:
+    cmd: python training.py
+    deps:
+    - training.py
+    - data/
+    outs:
+    - metrics.txt
+    metrics:
+    - metrics.json:
+        cache: false
+        
