@@ -5,6 +5,12 @@ jobs:
         runs-on: [ubuntu-latest]
         container: docker://dvcorg/cml-py3:latest
         steps:
+            - uses: iterative/dvc-action
+              with:
+                github_token: ${{ secrets.GITHUBTOKEN }}
+                dvc_repro_file: data.dvc
+              env: 
+                GDRIVE_USER_CREDENTIALS: ${{ secrets.GDRIVE_USER_CREDENTIALS }}
             - uses: actions/checkout@v2
             - name: cml_run
               env:
