@@ -45,6 +45,20 @@ def get_dtreeviz(m, df):
     return file_name
 
 
+def r_mse(pred, y): return round(math.sqrt(((pred-y)**2).mean()), 6)
+def m_rmse(m, xs, y): return r_mse(m.predict(xs), y)
+
+def write_metrics(file_name, train_rmse, valid_rmse):
+
+    with open(file_name, 'w') as fp:
+        t_rmse = "%2.1f" % train_rmse
+        v_rmse = "%2.1f" % valid_rmse
+        fp.write("Training RMSE: %s\n" % t_rmse)
+        fp.write("Validation RMSE: %s\n" % v_rmse)
+
+    with open("metrics.json", 'w') as outfile:
+        json.dump({"training_rmse": t_rmse, "valid_rmse": v_rmse}, outfile)
+
 handle_dates(df)
 handle_dates(df_test)
 
@@ -54,8 +68,13 @@ to = transform_data(df)
 # Train DT
 xs, y = to.train.xs, to.train.y
 valid_xs, valid_y = to.valid.xs, to.valid.y
-m = DecisionTreeRegressor(max_leaf_nodes=4)
+m = DecisionTreeRegressor(max_leaf_nodes=10)
 m.fit(xs, y)
+train_rmse = m_rmse(m, xs, y)
+valid_rmse = m_rmse(m, valid_xs, valid_y)
+
+write_metrics("metrics.txt", train_rmse, valid_rmse)
+
 draw_tree(m, xs, size=7, leaves_parallel=True, precision=2)
 get_dtreeviz(m, to.train)
 
