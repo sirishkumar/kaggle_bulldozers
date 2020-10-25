@@ -22,5 +22,5 @@ jobs:
                 echo "## Model metrics" >> report.md
                 cat metrics.txt >> report.md
 
-                cml-publish /tmp/dtree.svg --md >> report.md
+                #cml-publish dtree.svg --md >> report.md
                 cml-send-comment report.md

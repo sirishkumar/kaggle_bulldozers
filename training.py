@@ -40,7 +40,7 @@ def get_dtreeviz(m, df):
     viz = dtreeviz(m, xs.iloc[samp_idx], y.iloc[samp_idx], xs.columns, dep_var,
                    fontname='DejaVu Sans', scale=1.6, label_fontsize=10,
                    orientation='LR')
-    file_name = '/tmp/dtree.svg'
+    file_name = 'dtree.svg'
     viz.save(file_name)
     return file_name
 
