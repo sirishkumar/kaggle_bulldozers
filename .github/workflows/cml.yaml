@@ -1,0 +1,21 @@
+name: collab_filtering
+on: [push]
+jobs: 
+    run: 
+        runs-on: [ubuntu-latest]
+        container: docker://dvcorg/cml-py3:latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: cml_run
+              env:
+                repo_token: ${{ secrets.GITHUBTOKEN }}
+                GDRIVE_USER_CREDENTIALS: ${{ secrets.GDRIVE_USER_CREDENTIALS }}
+              run: |
+                pip install -U pip
+                pip install -r requirements.txt
+                dvc pull data
+                echo "# Training DTree: " >> report.md
+                python training.py
+
+                cml-publish /tmp/dtree.svg --md >> report.md
+                cml-send-comment report.md
