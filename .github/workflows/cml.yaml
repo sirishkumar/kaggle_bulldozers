@@ -5,21 +5,18 @@ jobs:
         runs-on: [ubuntu-latest]
         container: docker://dvcorg/cml-py3:latest
         steps:
-            - uses: iterative/dvc-action
-              with:
-                github_token: ${{ secrets.GITHUBTOKEN }}
-                dvc_repro_file: data.dvc
-              env: 
-                GDRIVE_USER_CREDENTIALS: ${{ secrets.GDRIVE_USER_CREDENTIALS }}
             - uses: actions/checkout@v2
             - name: cml_run
               env:
                 repo_token: ${{ secrets.GITHUBTOKEN }}
                 GDRIVE_USER_CREDENTIALS: ${{ secrets.GDRIVE_USER_CREDENTIALS }}
+                KAGGLE_API_KEY: ${{ secrets.KAGGLE_API_KEY }}
               run: |
                 pip install -U pip
                 pip install -r requirements.txt
-                dvc pull
+
+                mkdir -p ~/.kaggle/
+                echo ${KAGGLE_API_KEY} > ~/.kaggle/kaggle.json
                 dvc repro
                 
                 echo "## Model metrics" >> report.md
